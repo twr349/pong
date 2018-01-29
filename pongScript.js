@@ -24,7 +24,8 @@ var step = function() {
 };
 
 var update = function() {
-  player.update(player.paddle, computer.paddle);
+  player.update();
+  ball.update(player.paddle, computer.paddle);
 };
 
 var player = new Player();
@@ -54,11 +55,11 @@ Paddle.prototype.render = function() {
 };
 
 function Player() {
-  this.paddle = new Paddle(5, 175, 10, 50);
+  this.paddle = new Paddle(15, 175, 10, 50);
 }
 
 function Computer() {
-  this.paddle = new Paddle(585, 175, 10, 50);
+  this.paddle = new Paddle(575, 175, 10, 50);
 }
 
 Player.prototype.render = function() {
@@ -119,4 +120,42 @@ Ball.prototype.render = function() {
   context.arc(this.x, this.y, this.radius, 2 * Math.PI, false);
   context.fillStyle = "#ffffff";
   context.fill();
+};
+
+Ball.prototype.update = function(paddle1, paddle2) {
+  this.x += this.x_speed;
+  this.y += this.y_speed;
+  var left_x = this.x - 5;
+  var left_y = this.y - 5;
+  var right_x = this.x + 5;
+  var right_y = this.y + 5;
+
+  if(this.y - 5 < 0) {
+    this.y = 5;
+    this.y_speed = -this.y_speed;
+  } else if(this.y + 5 > 400) {
+    this.y = 395;
+    this.y_speed = -this.y_speed;
+  }
+
+  if(this.x < 0 || this.x > 600) {
+    this.x_speed = 3;
+    this.y_speed = 0;
+    this.x = 300;
+    this.y = 200;
+  }
+
+  if(left_x < 300) {
+    if(left_x < (paddle1.x + paddle1.width) && right_x > paddle1.x && left_y < (paddle1.y + paddle1.height) && right_y > paddle1.y) {
+      this.x_speed = 3;
+      this.y_speed += (paddle1.y_speed / 2);
+      this.x += this.x_speed;
+    }
+  } else {
+    if(left_x < (paddle2.x + paddle2.width) && right_x > paddle2.x && left_y < (paddle2.y + paddle2.height) && right_y > paddle2.y) {
+      this.x_speed = -3;
+      this.y_speed += (paddle2.y_speed / 2);
+      this.x += this.x_speed;
+    }
+  }
 };
