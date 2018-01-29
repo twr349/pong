@@ -32,6 +32,10 @@ var update = function() {
 var player = new Player();
 var computer = new Computer();
 var ball = new Ball(300, 200);
+var score = {
+  human: 0,
+  computer: 0
+};
 
 var render = function() {
   context.fillStyle = "#000000";
@@ -155,16 +159,22 @@ Ball.prototype.update = function(paddle1, paddle2) {
     this.y_speed = -this.y_speed;
   }
 
+
+
   if(this.x < 0) {
     this.x_speed = 3;
     this.y_speed = Math.floor(Math.random() * 4);
     this.x = 300;
     this.y = 200;
-  } else if(this.x > 600) {
+    score.computer ++;
+    document.getElementById('scoreComputer').innerHTML = score.computer;
+  } if(this.x > 600) {
     this.x_speed = -3;
     this.y_speed = Math.floor(Math.random() * 4);
     this.x = 300;
     this.y = 200;
+    score.human ++;
+    document.getElementById('scoreHuman').innerHTML = score.human;
   }
 
   if(left_x < 300) {
