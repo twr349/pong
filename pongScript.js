@@ -13,7 +13,7 @@ canvas.height = height;
 var context = canvas.getContext('2d');
 
 window.onload = function() {
-  document.body.appendChild(canvas);
+  document.getElementById('canvasContainer').appendChild(canvas);
   animate(step);
 };
 
@@ -168,13 +168,25 @@ Ball.prototype.update = function(paddle1, paddle2) {
     this.y = 200;
     score.computer ++;
     document.getElementById('scoreComputer').innerHTML = score.computer;
-  } if(this.x > 600) {
+    if (score.computer == 11) {
+      this.x_speed = 0;
+      this.y_speed = 0;
+      document.getElementById('endGame').style.visibility = "visible";
+    }
+  }
+
+  if(this.x > 600) {
     this.x_speed = -3;
     this.y_speed = Math.floor(Math.random() * 4);
     this.x = 300;
     this.y = 200;
     score.human ++;
     document.getElementById('scoreHuman').innerHTML = score.human;
+    if (score.human == 11) {
+      this.x_speed = 0;
+      this.y_speed = 0;
+      document.getElementById('winGame').style.visibility = "visible";
+    }
   }
 
   if(left_x < 300) {

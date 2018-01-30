@@ -1,1 +1,21 @@
+.container {
+  text-align: center;
+}
 
+#canvasContainer {
+  height: 420px;
+  width: 620px;
+  border: 10px solid red;
+  margin: auto auto;
+}
+
+.container h1 {
+  font-size: 80px;
+  font-family: 'Monoton', cursive;
+  color: red;
+  text-align: center;
+}
+
+.container h3 {
+  font-family: 'Press Start 2P', cursive;
+}
