@@ -19,3 +19,12 @@
 .container h3 {
   font-family: 'Press Start 2P', cursive;
 }
+
+.music-controls {
+  font-family: 'Press Start 2P', cursive;
+  display: inline-block;
+}
+
+.music-controls > label {
+  float: right;
+}
